@@ -11,6 +11,7 @@ const staticFileExtensions = [
     'wmv', 'woff', 'xls', 'xml', 'zip',
 ];
 const botUserAgents = [
+    'coccocbot',
     'googlebot',
     'Baiduspider',
     'bingbot',
