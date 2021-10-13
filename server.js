@@ -30,7 +30,7 @@ const botUserAgents = [
 ];
 
 app.use(rendertron.makeMiddleware({
-    proxyUrl: 'http://localhost:3000/render',
+    proxyUrl: 'https://render-tron.appspot.com/render',
     userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
     excludeUrlPattern: new RegExp(`\\.(${staticFileExtensions.join('|')})$`, 'i'),
 }));
