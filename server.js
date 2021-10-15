@@ -10,8 +10,11 @@ const staticFileExtensions = [
     'rar', 'rss', 'svg', 'swf', 'tif', 'torrent', 'ttf', 'txt', 'wav',
     'wmv', 'woff', 'xls', 'xml', 'zip',
 ];
+
 const botUserAgents = [
+    'Viber',
     'coccocbot',
+    'Googlebot',
     'googlebot',
     'Baiduspider',
     'bingbot',
@@ -29,10 +32,17 @@ const botUserAgents = [
     'vkShare',
     'W3C_Validator',
     'WhatsApp',
+    'Mozilla',
+    'PostmanRuntime',
 ];
-
+app.use(function (req, res, next) {
+    const userAgent = req.headers['user-agent'];
+    console.log('userAgent', userAgent);
+    next();
+});
 app.use(rendertron.makeMiddleware({
-    proxyUrl: 'https://render-tron.appspot.com/render',
+    // proxyUrl: 'http://localhost:3000/render',
+    proxyUrl: 'http://103.81.84.214:3000/render',
     userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
     excludeUrlPattern: new RegExp(`\\.(${staticFileExtensions.join('|')})$`, 'i'),
 }));
