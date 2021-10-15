@@ -33,7 +33,6 @@ const botUserAgents = [
     'vkShare',
     'W3C_Validator',
     'WhatsApp',
-    'Mozilla',
     'PostmanRuntime',
 ];
 const mobileUserAgent = ['Mobile', 'iPhone'];
