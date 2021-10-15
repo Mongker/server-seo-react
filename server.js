@@ -1,5 +1,6 @@
 const express = require('express');
-const rendertron = require('rendertron-middleware');
+// const rendertron = require('rendertron-middleware');
+const rendertron = require('./rendertron.middleware');
 const path = require('path');
 const app = express();
 
@@ -8,7 +9,7 @@ const staticFileExtensions = [
     'gif', 'ico', 'iso', 'jpeg', 'jpg', 'js', 'less', 'm4a', 'm4v',
     'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'png', 'ppt', 'psd',
     'rar', 'rss', 'svg', 'swf', 'tif', 'torrent', 'ttf', 'txt', 'wav',
-    'wmv', 'woff', 'xls', 'xml', 'zip',
+    'wmv', 'woff', 'xls', 'xml', 'zip', 'json', 'map'
 ];
 
 const botUserAgents = [
@@ -35,16 +36,14 @@ const botUserAgents = [
     'Mozilla',
     'PostmanRuntime',
 ];
-app.use(function (req, res, next) {
-    const userAgent = req.headers['user-agent'];
-    console.log('userAgent', userAgent);
-    next();
-});
+const mobileUserAgent = ['Mobile', 'iPhone'];
+
 app.use(rendertron.makeMiddleware({
     // proxyUrl: 'http://localhost:3000/render',
     proxyUrl: 'http://103.81.84.214:3000/render',
     userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
     excludeUrlPattern: new RegExp(`\\.(${staticFileExtensions.join('|')})$`, 'i'),
+    userAgentMobile: new RegExp(mobileUserAgent.join('|'), 'i'),
 }));
 app.use(express.static(path.join(__dirname, 'build')));
 app.get('*', function (req, res) {
