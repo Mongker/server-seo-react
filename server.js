@@ -9,7 +9,7 @@ const staticFileExtensions = [
     'gif', 'ico', 'iso', 'jpeg', 'jpg', 'js', 'less', 'm4a', 'm4v',
     'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'png', 'ppt', 'psd',
     'rar', 'rss', 'svg', 'swf', 'tif', 'torrent', 'ttf', 'txt', 'wav',
-    'wmv', 'woff', 'xls', 'xml', 'zip', 'json', 'map'
+    'wmv', 'woff', 'xls', 'xml', 'zip', 'json', 'map', 'php', 'xml'
 ];
 
 const botUserAgents = [
@@ -33,7 +33,8 @@ const botUserAgents = [
     'vkShare',
     'W3C_Validator',
     'WhatsApp',
-    'PostmanRuntime',
+    'whatsapp',
+    // 'PostmanRuntime',
 ];
 const mobileUserAgent = ['Mobile', 'iPhone'];
 

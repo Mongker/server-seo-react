@@ -15,6 +15,7 @@
  * the License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+const e = require("cors");
 const request = require("request");
 /**
  * A default set of user agent patterns for bots/crawlers that do not perform
@@ -74,15 +75,21 @@ function makeMiddleware(options) {
     const timeout = options.timeout || 11000; // Milliseconds.
     return function rendertronMiddleware(req, res, next) {
         let ua = req.headers['user-agent'];
-        if (ua === undefined || !userAgentPattern.test(ua) ||
-            excludeUrlPattern.test(req.path)) {
+        let refreshCache = !!req.headers['refresh-cache-seo'];
+        console.log('refreshCache',)
+        if ((ua === undefined || !userAgentPattern.test(ua) ||
+            excludeUrlPattern.test(req.path)) && !refreshCache) {
             next();
             return;
         }
         const incomingUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         let renderUrl = proxyUrl + encodeURIComponent(incomingUrl);
-        if (userAgentMobile.test(ua)) {
-            renderUrl = renderUrl + '?mobile&refreshCache=true'
+        if (userAgentMobile.test(ua) && refreshCache) {
+            renderUrl = renderUrl + '?mobile&refreshCache=true';
+        } else if (userAgentMobile.test(ua)) {
+            renderUrl = renderUrl + '?mobile';
+        } else if (refreshCache) {
+            renderUrl = renderUrl + '?refreshCache=true';
         }
         console.log('isMobile', userAgentMobile.test(ua));
         console.log('renderUrl', renderUrl);
