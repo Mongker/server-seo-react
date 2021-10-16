@@ -83,7 +83,6 @@ function makeMiddleware(options) {
             return;
         }
         const originalUrlClearQuery = req.originalUrl.split('?')[0]
-        console.log('originalUrlClearQuery', originalUrlClearQuery);
         const incomingUrl = req.protocol + '://' + req.get('host') + originalUrlClearQuery;
         let renderUrl = proxyUrl + encodeURIComponent(incomingUrl);
         if (userAgentMobile.test(ua) && refreshCache) {
@@ -93,7 +92,7 @@ function makeMiddleware(options) {
         } else if (refreshCache) {
             renderUrl = renderUrl + '?refreshCache=true';
         }
-        console.log('isMobile', userAgentMobile.test(ua));
+        console.log('AgentMobile', ua);
         console.log('renderUrl', renderUrl);
         console.log('------------------------------------------------------------------------');
         // if (injectShadyDom) {
