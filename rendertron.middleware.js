@@ -82,7 +82,9 @@ function makeMiddleware(options) {
             next();
             return;
         }
-        const incomingUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+        const originalUrlClearQuery = req.originalUrl.split('?')[0]
+        console.log('originalUrlClearQuery', originalUrlClearQuery);
+        const incomingUrl = req.protocol + '://' + req.get('host') + originalUrlClearQuery;
         let renderUrl = proxyUrl + encodeURIComponent(incomingUrl);
         if (userAgentMobile.test(ua) && refreshCache) {
             renderUrl = renderUrl + '?mobile&refreshCache=true';
