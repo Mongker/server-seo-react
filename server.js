@@ -34,7 +34,8 @@ const botUserAgents = [
     'W3C_Validator',
     'WhatsApp',
     'whatsapp',
-    // 'PostmanRuntime',
+    'etaInspector',
+    'PostmanRuntime',
 ];
 const mobileUserAgent = ['Mobile', 'iPhone'];
 
