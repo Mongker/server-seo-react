@@ -75,6 +75,7 @@ function makeMiddleware(options) {
     const timeout = options.timeout || 11000; // Milliseconds.
     return function rendertronMiddleware(req, res, next) {
         let ua = req.headers['user-agent'];
+        console.log('user-agent:', ua);
         let refreshCache = !!req.headers['refresh-cache-seo'];
         console.log('refreshCache',)
         if ((ua === undefined || !userAgentPattern.test(ua) ||
@@ -92,7 +93,7 @@ function makeMiddleware(options) {
         } else if (refreshCache) {
             renderUrl = renderUrl + '?refreshCache=true';
         }
-        console.log('AgentMobile', ua);
+
         console.log('renderUrl', renderUrl);
         console.log('------------------------------------------------------------------------');
         // if (injectShadyDom) {
