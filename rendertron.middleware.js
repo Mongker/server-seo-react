@@ -82,7 +82,7 @@ function makeMiddleware(options) {
         const incomingUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         let renderUrl = proxyUrl + encodeURIComponent(incomingUrl);
         if (userAgentMobile.test(ua)) {
-            renderUrl = renderUrl + '?mobile'
+            renderUrl = renderUrl + '?mobile&refreshCache=true'
         }
         console.log('isMobile', userAgentMobile.test(ua));
         console.log('renderUrl', renderUrl);
