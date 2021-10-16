@@ -82,15 +82,14 @@ function makeMiddleware(options) {
         const incomingUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         let renderUrl = proxyUrl + encodeURIComponent(incomingUrl);
         if (userAgentMobile.test(ua)) {
-            renderUrl = renderUrl + '?mobile&refreshCache=true'
+            renderUrl = renderUrl + '?mobile'
         }
         console.log('isMobile', userAgentMobile.test(ua));
         console.log('renderUrl', renderUrl);
-        console.log('injectShadyDom', injectShadyDom);
         console.log('------------------------------------------------------------------------');
-        if (injectShadyDom) {
-            renderUrl += '?wc-inject-shadydom=true';
-        }
+        // if (injectShadyDom) {
+        //     renderUrl += '?wc-inject-shadydom=true';
+        // }
         request({ url: renderUrl, timeout }, (e) => {
             if (e) {
                 console.error(`[rendertron middleware] ${e.code} error fetching ${renderUrl}`);
