@@ -67,4 +67,4 @@ const Slider = new Schema(
         collection: 'slider',
     },
 );
-module.exports = mongoose.model('Transaction', Slider, 'transaction_dev');
+module.exports = mongoose.model('Transaction', Slider, 'transaction');

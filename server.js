@@ -65,15 +65,15 @@ app.listen( 4040, function () {
 });
 app.use(transactionRouter);
 
-// app.use(rendertron.makeMiddleware({
-//     // proxyUrl: 'http://localhost:3000/render',
-//     proxyUrl: 'http://103.81.84.214:3000/render',
-//     userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
-//     excludeUrlPattern: new RegExp(`\\.(${staticFileExtensions.join('|')})$`, 'i'),
-//     userAgentMobile: new RegExp(mobileUserAgent.join('|'), 'i'),
-// }));
+app.use(rendertron.makeMiddleware({
+    // proxyUrl: 'http://localhost:3000/render',
+    proxyUrl: 'http://103.81.84.214:3000/render',
+    userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
+    excludeUrlPattern: new RegExp(`\\.(${staticFileExtensions.join('|')})$`, 'i'),
+    userAgentMobile: new RegExp(mobileUserAgent.join('|'), 'i'),
+}));
 
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.get('*', function (req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
