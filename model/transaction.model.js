@@ -42,6 +42,21 @@ const Slider = new Schema(
             require: true,
             default: '',
         },
+        day: {
+            type: Number,
+            require: true,
+            default: '',
+        },
+        month: {
+            type: Number,
+            require: true,
+            default: '',
+        },
+        year: {
+            type: Number,
+            require: true,
+            default: '',
+        },
         profit: {
             type: Number,
             default: 0,

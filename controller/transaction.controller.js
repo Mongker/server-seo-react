@@ -25,7 +25,28 @@ const Transaction = require('../model/transaction.model');
 // }
 module.exports = {
     GET: async function (req, res) {
-        await Transaction.find(function (err, data) {
+        let queryDate = {};
+        if (req.query && Object.keys(req.query).length > 0) {
+            const day = req.query && req.query.day;
+            const month = req.query && req.query.month;
+            const year = req.query && req.query.year;
+            const code = req.query && req.query.code;
+            code && (queryDate['code'] = new RegExp(code, 'i'));
+            year && (queryDate['year'] = Number(year));
+            month && (queryDate['month'] = Number(month));
+            day && (queryDate['day'] = Number(day));
+            // const queryIds = Object.keys(queryDate).map((key) => ({[key]: queryDate[key]}));
+            // if(queryIds.length === 0 && code) {
+            //     query.$and = [{code: new RegExp(code, 'i')}];
+            // } else if(queryIds.length > 0 && code) {
+            //     console.log('query1:', queryIds); // MongLV log fix bug
+            //     query.$and = [...queryIds, {code: new RegExp(code, 'i')}]
+            // } else if(queryIds.length > 0) {
+            //     query.$and = [...queryIds];
+            // }
+        }
+        console.log('query', queryDate); // MongLV log fix bug
+        await Transaction.find(queryDate, function (err, data) {
             if (err) return res.status(404).json({ message: err });
             else {
                 const objectData = {};
@@ -35,11 +56,25 @@ module.exports = {
                 return res.status(200).json(objectData);
             }
         });
+
     },
     POST: async function (req, res) {
         const itemIds = req.body && req.body.data && req.body.data;
         if(Array.isArray(itemIds)) {
-            Transaction.insertMany(itemIds).then((array) => {
+            const itemIdsNew = itemIds.map((item) => {
+                const itemIdsDate = item.date.split('/')
+                let day = '';
+                let month = '';
+                let year = '';
+                if(itemIdsDate.length === 3) {
+                    day = Number(itemIdsDate[0]);
+                    month = Number(itemIdsDate[1]);
+                    year = Number(itemIdsDate[2]);
+                }
+
+                return {...item, day, month, year};
+            })
+            Transaction.insertMany(itemIdsNew).then((array) => {
                 const items = {};
                 array.map((item) => {
                     items[item._id] = {create: item['create'], _id: item._id}
@@ -52,18 +87,12 @@ module.exports = {
         }
     },
     DELETE: async function (req, res) {
-        // await Transaction.findByIdAndRemove({ _id: req.params.id }, async function (err, Product) {
-        //     if (err) res.json(err);
-        //     else {
-        //         try {
-        //             if (Product) {
-        //                 await _update(Product, req, res);
-        //             }
-        //         } catch (err) {
-        //             console.log('DELETE slider', err);
-        //         }
-        //     }
-        // });
+        await Transaction.findByIdAndRemove({ _id: req.params.id }, async function (err, data) {
+            if (err) res.json(err);
+            else {
+                return res.json({ message: 'SUCCESS' });
+            }
+        });
     },
     UPDATE: async function (req, res) {
         await Transaction.findById(req.params.id, function (err, Transaction) {

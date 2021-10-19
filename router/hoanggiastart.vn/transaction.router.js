@@ -9,11 +9,11 @@
 const express = require('express');
 
 //controller
-const {GET, POST, MID_POST /* , DELETE, UPDATE */} = require('../../controller/transaction.controller');
+const {GET, POST, DELETE /* , DELETE, UPDATE */} = require('../../controller/transaction.controller');
 
 // const
 const transactionRouter = express.Router();
 
 transactionRouter.route('/api/transaction').get(GET).post(POST);
-// sliderRouter.route('/api/transaction/:id').delete(DELETE).put(UPDATE);
+transactionRouter.route('/api/transaction/:id').delete(DELETE);
 module.exports = transactionRouter;
