@@ -15,6 +15,7 @@ const listIpAdmin = [
 
 const isIPAdmin = async (req, res, next) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    console.log('ip', ip); // MongLV log fix bug
     if (ip.includes(listIpAdmin)) {
         next();
     } else {
