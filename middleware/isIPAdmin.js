@@ -7,7 +7,7 @@
  * @university: UTT (Đại học Công Nghệ Giao Thông Vận Tải)
  */
 const listIpAdmin = [
-    // '::ffff:27.79.205.99',
+    '::ffff:27.79.205.99',
     '2001:ee0:471d:88d0:699b:36df:72c7:29b5',
     '14.239.229.53',
     '113.190.130.57',
@@ -16,7 +16,6 @@ const listIpAdmin = [
 const isIPAdmin = async (req, res, next) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     console.log('ip', ip); // MongLV log fix bug
-    console.log('ip.includes(listIpAdmin)', ip.includes(listIpAdmin)); // MongLV log fix bug
     if (ip.includes(listIpAdmin)) {
         next();
     } else {

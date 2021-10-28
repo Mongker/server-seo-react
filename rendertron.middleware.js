@@ -75,7 +75,6 @@ function makeMiddleware(options) {
     const timeout = options.timeout || 11000; // Milliseconds.
     return function rendertronMiddleware(req, res, next) {
         let ua = req.headers['user-agent'];
-        console.log('user-agent:', ua);
         let refreshCache = !!req.headers['refresh-cache-seo'];
         if ((ua === undefined || !userAgentPattern.test(ua) ||
             excludeUrlPattern.test(req.path)) && !refreshCache) {
@@ -94,7 +93,7 @@ function makeMiddleware(options) {
         }
 
         console.log('renderUrl', renderUrl);
-        console.log('------------------------------------------------------------------------');
+        console.log
         // if (injectShadyDom) {
         //     renderUrl += '?wc-inject-shadydom=true';
         // }

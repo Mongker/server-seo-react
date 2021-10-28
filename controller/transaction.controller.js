@@ -45,7 +45,6 @@ module.exports = {
             //     query.$and = [...queryIds];
             // }
         }
-        console.log('query', queryDate); // MongLV log fix bug
         await Transaction.find(queryDate, function (err, data) {
             if (err) return res.status(404).json({ message: err });
             else {
