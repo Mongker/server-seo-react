@@ -19,7 +19,7 @@ const isIPAdmin = async (req, res, next) => {
     console.log('ip', typeof ip); // MongLV log fix bug
     console.log('checkIp', ip.includes(listIpAdmin)); // MongLV log fix bug
     console.log('listIpAdmin', listIpAdmin); // MongLV log fix bug
-    if (ip.includes(listIpAdmin)) {
+    if (typeof ip === 'string' && ip.trim().includes(listIpAdmin)) {
         next();
     } else {
         return res.status(200).json({});
