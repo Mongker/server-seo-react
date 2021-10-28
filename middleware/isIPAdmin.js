@@ -16,10 +16,7 @@ const listIpAdmin = [
 const isIPAdmin = async (req, res, next) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     console.log('ip', ip); // MongLV log fix bug
-    console.log('ip', typeof ip); // MongLV log fix bug
-    console.log('checkIp', ip.includes(listIpAdmin)); // MongLV log fix bug
-    console.log('listIpAdmin', listIpAdmin); // MongLV log fix bug
-    if (typeof ip === 'string' && ip.trim().includes(listIpAdmin)) {
+    if (typeof ip === 'string' && listIpAdmin.includes(ip.trim())) {
         next();
     } else {
         return res.status(200).json({});
