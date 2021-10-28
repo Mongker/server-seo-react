@@ -7,7 +7,7 @@
  * @university: UTT (Đại học Công Nghệ Giao Thông Vận Tải)
  */
 const listIpAdmin = [
-    '27.79.205.99',
+    // '27.79.205.99',
     '2001:ee0:471d:88d0:699b:36df:72c7:29b5',
     '14.239.229.53',
     '113.190.130.57',
