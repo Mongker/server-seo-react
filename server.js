@@ -63,6 +63,11 @@ app.use(bodyParser.json());
 app.listen( 4040, function () {
     console.log('Server is running on Port:', 4040);
 });
+app.use(function (req, res, next) {
+    const userAgent = req.headers['user-agent'];
+    console.log('userAgent', userAgent);
+    next();
+});
 app.use(transactionRouter);
 
 app.use(rendertron.makeMiddleware({
@@ -73,7 +78,12 @@ app.use(rendertron.makeMiddleware({
     userAgentMobile: new RegExp(mobileUserAgent.join('|'), 'i'),
 }));
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build'), {
+    setHeaders: function (res, path) {
+        return res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+    }
+}));
+
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

@@ -11,9 +11,11 @@ const express = require('express');
 //controller
 const {GET, POST, DELETE /* , DELETE, UPDATE */} = require('../../controller/transaction.controller');
 
+// middleware
+const isIPAdmin = require('../../middleware/isIPAdmin');
+
 // const
 const transactionRouter = express.Router();
-
-transactionRouter.route('/api/transaction').get(GET).post(POST);
-transactionRouter.route('/api/transaction/:id').delete(DELETE);
+transactionRouter.route('/api/transaction').get(isIPAdmin, GET).post(isIPAdmin, POST);
+transactionRouter.route('/api/transaction/:id').delete(isIPAdmin, DELETE);
 module.exports = transactionRouter;

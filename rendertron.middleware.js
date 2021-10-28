@@ -77,7 +77,6 @@ function makeMiddleware(options) {
         let ua = req.headers['user-agent'];
         console.log('user-agent:', ua);
         let refreshCache = !!req.headers['refresh-cache-seo'];
-        console.log('refreshCache',)
         if ((ua === undefined || !userAgentPattern.test(ua) ||
             excludeUrlPattern.test(req.path)) && !refreshCache) {
             next();

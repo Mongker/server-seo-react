@@ -17,7 +17,8 @@
     "express": "^4.16.3",
     "method-override": "^3.0.0",
     "mongoose": "^5.9.9",
-    "rendertron-middleware": "^0.1.5"
+    "rendertron-middleware": "^0.1.5",
+    "serve-static": "^1.14.1"
   },
   "devDependencies": {
     "nodemon": "^1.17.4"
